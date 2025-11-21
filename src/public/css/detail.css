@@ -182,29 +182,45 @@
 .comment {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    background-color: #f6f6f6;
+    gap: 15px;
+    /* background-color: #f6f6f6;
     padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+    border-radius: 6px; */
+    margin-bottom: 25px;
 }
 
 .comment-user-image {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
     background-color: #ddd;
+    flex-shrink: 0;
 }
 
+comment-user-image.no-image {
+    background: #ddd;
+}
+
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
 .comment-user {
     font-weight: bold;
-    margin: 0;
+    font-size: 16px;
+    text-align: center;
 }
 
 .comment-text {
-    margin: 2px 0 0;
+    background: #E5E5E5;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 0;
+    width: 100%;
     color: #333;
 }
 
