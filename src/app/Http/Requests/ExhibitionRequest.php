@@ -28,7 +28,7 @@ class ExhibitionRequest extends FormRequest
             'price' => ['required', 'integer', 'min:0'],
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
             'description' => ['required', 'max:255'],
-            'condition_id' => ['required']
+            'condition' => ['required']
         ];
     }
 
@@ -40,10 +40,10 @@ class ExhibitionRequest extends FormRequest
             'price.integer' => '数値で入力してください',
             'price.min' => '0円以上で入力してください',
             'image.required' => '商品画像を登録してください',
-            'image.mimes:png,jpeg' => '「.png」または「.jpeg」形式でアップロードしてください',
+            'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
             'description.required' => '商品説明を入力してください',
             'description.max' => '255文字以内で入力してください',
-            'condition_id.required' => '状態を選択してください',
+            'condition.required' => '状態を選択してください',
         ];
     }
 }

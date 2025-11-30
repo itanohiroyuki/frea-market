@@ -31,7 +31,6 @@
 
 .image-area>* {
     grid-area: 1 / 1;
-    /* 全ての子要素を同じセルに配置 */
 }
 
 .image-button {

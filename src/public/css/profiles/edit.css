@@ -71,8 +71,6 @@
     display: none;
 }
 
-
-
 .label {
     display: block;
     margin-bottom: 4px;
@@ -119,36 +117,3 @@
     font-weight: bold;
     font-size: 26px;
 }
-
-/* @media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .edit-content {
-        max-width: 760px;
-        height: 820px;
-    }
-
-    .edit-content__inner {
-        max-width: 720px;
-    }
-
-    .edit-content__title {
-        font-size: 40px;
-    }
-
-    .profile-image-area {
-        gap: 60px;
-    }
-
-    .image {
-        width: 140px;
-        height: 140px;
-    }
-
-    .input {
-        font-size: 22px;
-    }
-
-    .update-btn {
-        font-size: 28px;
-    }
-}
- */

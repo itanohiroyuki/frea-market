@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
+    public function add()
+    {
+        return view('auth.register');
+    }
+
+
     public function store(RegisterRequest $request)
     {
         $validated = $request->validated();
@@ -24,6 +30,6 @@ class RegisteredUserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/mypage/config');
+        return redirect('/verify/notice');
     }
 }

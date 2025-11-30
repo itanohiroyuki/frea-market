@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-nav')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
@@ -9,8 +9,6 @@
         <div class="product-image-area">
             <img class="image" src="{{ asset('storage/' . $product->image) }}" alt="商品画像">
         </div>
-
-
         <div class="product-description-area">
             <div class="product-top">
                 <h2 class="product-name">{{ $product->name }}</h2>
@@ -21,10 +19,10 @@
                     <form action="/item/like/{{ $product->id }}" method="POST">
                         @csrf
                         <button type="submit" class="like-action">
-                            @if ($product->likedBy->where('user_id', Auth::id())->count())
-                                <img class="icon-image" src="{{ asset('/images/星アイコン8 (3).png') }}" alt="">
+                            @if ($isLiked)
+                                <img class="icon-image" src="{{ asset('/images/ハートロゴ_ピンク.png') }}" alt="">
                             @else
-                                <img class="icon-image" src="{{ asset('/images/星アイコン8 (3).png') }}" alt="">
+                                <img class="icon-image" src="{{ asset('/images/ハートロゴ_デフォルト.png') }}" alt="">
                             @endif
                             <span class="like-counter">{{ $product->likedBy->count() }}</span>
                         </button>
@@ -40,12 +38,10 @@
                     </form>
                 </div>
             </div>
-
             <div class="product-description">
                 <h3 class="title">商品説明</h3>
                 <p class="description">{{ $product->description }}</p>
             </div>
-
             <div class="product-info">
                 <h3 class="title">商品情報</h3>
                 <div class="info-row">
@@ -54,28 +50,29 @@
                         <span class="category-value">{{ $category->name }}</span>
                     @endforeach
                 </div>
-
                 <div class="info-row">
                     <label class="info-label">商品の状態</label>
                     <span class="condition-value">{{ $product->condition->name }}</span>
                 </div>
             </div>
-
             <div class="comments-area">
-                <h3 class="comment-title">コメント({{ $product->comments->count() }})</h3>
+                <h3 class="comment-title">
+                    コメント({{ $product->comments->count() }})
+                </h3>
                 @foreach ($product->comments as $comment)
                     <div class="comment">
-                        @if ($comment->user->profile->image_url === asset('images/no-image.png'))
-                            <div class="comment-user-image"></div>
+                        @if (optional($comment->user->profile)->image_url && Storage::exists(optional($comment->user->profile)->image_url))
+                            <img class="comment-user-image" src="{{ $comment->user->profile->image_url }}"
+                                alt="{{ $comment->user->name }}">
                         @else
-                            <img class="comment-user-image" src="{{ $comment->user->profile->image_url }}" alt="">
+                            <div class="comment-user-image-placeholder"></div>
                         @endif
-
-                        <p class="comment-user">{{ $comment->user->name }}</p>
-                        <p class="comment-text">{{ $comment->content }}</p>
+                        <div class="comment-body">
+                            <p class="comment-user">{{ $comment->user->name }}</p>
+                            <p class="comment-text">{{ $comment->content }}</p>
+                        </div>
                     </div>
                 @endforeach
-
                 @auth
                     <form action="/item/comment/{{ $product->id }}" method="POST" class="comment-form">
                         @csrf

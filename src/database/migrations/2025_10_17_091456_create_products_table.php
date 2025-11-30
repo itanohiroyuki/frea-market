@@ -17,12 +17,15 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('payment_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('buyer_id')->nullable();
+            $table->unsignedBigInteger('seller_id')->nullable();
             $table->string('image');
             $table->string('name');
             $table->integer('price');
             $table->string('brand')->nullable();
             $table->text('description');
+            $table->text('shipping_address')->nullable();
             $table->enum('status', ['available', 'sold'])->default('available');
             $table->timestamps();
         });
@@ -35,6 +38,22 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['condition_id']);
+
+            if (Schema::hasColumn('products', 'payment_id')) {
+                $table->dropForeign(['payment_id']);
+            }
+
+            if (Schema::hasColumn('products', 'seller_id')) {
+                $table->dropForeign(['seller_id']);
+            }
+
+            if (Schema::hasColumn('products', 'buyer_id')) {
+                $table->dropForeign(['buyer_id']);
+            }
+        });
         Schema::dropIfExists('products');
     }
 }

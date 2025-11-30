@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-nav')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/list.css') }}">
@@ -7,12 +7,16 @@
 @section('content')
     <div class="all-contents">
         <div class="products-list">
+            @if (request('pending'))
+                <div class="alert alert-info">
+                    コンビニでのお支払い番号を発行しました。Stripe から届くメールをご確認ください。
+                </div>
+            @endif
             <div class="products-list__inner">
                 <a class="best {{ $tab === 'best' ? 'active' : '' }}" href="{{ url('/') }}">おすすめ</a>
                 <a class="mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/?tab=mylist') }}">マイリスト</a>
             </div>
         </div>
-
         <div class="product-contents">
             @if ($products->isEmpty())
                 <p class="no-products">
@@ -26,13 +30,30 @@
                             @if ($product->status === 'sold')
                                 <span class="sold-label">SOLD</span>
                             @endif
-                            <div class="detail-content">
-                                <p class="product-name">{{ $product->name }}</p>
-                            </div>
                         </a>
+                        <div class="detail-content">
+                            <p class="product-name">{{ $product->name }}</p>
+                        </div>
                     </div>
                 @endforeach
             @endif
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const keyword = "{{ $keyword ?? '' }}";
+            const bestLink = document.querySelector('.best');
+            const mylistLink = document.querySelector('.mylist');
+            if (!bestLink || !mylistLink) return;
+            if (keyword) {
+                bestLink.href = `/search?tab=best&keyword=${encodeURIComponent(keyword)}`;
+                mylistLink.href = `/search?tab=mylist&keyword=${encodeURIComponent(keyword)}`;
+            } else {
+                bestLink.href = `/`;
+                mylistLink.href = `/?tab=mylist`;
+            }
+        });
+    </script>
 @endsection

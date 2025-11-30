@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-simple')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
@@ -8,7 +8,7 @@
     <div class="register-content">
         <div class="register-content__inner">
             <h2 class="register-content__title">会員登録</h2>
-            <form class="register-form" action="/register" method="post">
+            <form class="register-form" action="/register" method="POST">
                 @csrf
                 <div class="input-wrapper">
                     <label class="label" for="name">ユーザー名</label>

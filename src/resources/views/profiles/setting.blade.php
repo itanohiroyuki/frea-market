@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-nav')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/profiles/setting.css') }}">
@@ -8,7 +8,7 @@
     <div class="edit-content">
         <div class="edit-content__inner">
             <h2 class="edit-content__title">プロフィール設定</h2>
-            <form method="POST" action="/mypage/config" enctype="multipart/form-data">
+            <form method="POST" action="/setting" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <div class="profile-image-area">
@@ -54,19 +54,14 @@
         </div>
     </div>
 @endsection
-
 @section('script')
     <script>
         document.getElementById('image').onchange = function(event) {
-
             initializeFiles();
-
             var files = event.target.files;
-
             for (var i = 0, f; f = files[i]; i++) {
                 var reader = new FileReader;
                 reader.readAsDataURL(f);
-
                 reader.onload = (function(theFile) {
                     return function(e) {
                         var div = document.createElement('div');

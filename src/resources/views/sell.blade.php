@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-nav')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/sell.css') }}">
@@ -32,7 +32,7 @@
                     @endforeach
                 </div>
                 <label class="condition-label">商品の状態</label>
-                <select class="condition-select"name="condition" id="condition">
+                <select class="condition-select"name="condition">
                     <option disabled selected>選択してください</option>
                     @foreach ($conditions as $condition)
                         <option value="{{ $condition->id }}" {{ old('condition_id') == $condition->id ? 'selected' : '' }}>

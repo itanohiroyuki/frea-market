@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddressRequest;
+
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
 use App\Models\Profile;
@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $page = $request->query('page', 'sell');
         $profile = $user->profile;
         if ($page === 'sell') {
-            $products = Product::where('user_id', $user->id)->get();
+            $products = Product::where('seller_id', $user->id)->get();
         } elseif ($page === 'buy') {
             $products = Product::where('buyer_id', $user->id)->get();
         } else {
@@ -28,12 +28,13 @@ class ProfileController extends Controller
         return view('profiles.mypage', compact('profile', 'products', 'page'));
     }
 
-    public function getSignUp()
+    public function showSetting()
     {
-        return view('profiles.setting');
+        $user = Auth::user();
+        return view('profiles.setting', compact('user'));
     }
 
-    public function postSignUp(ProfileRequest $request)
+    public function saveSetting(ProfileRequest $request)
     {
         $user = Auth::user();
         $profile_data = new Profile();
@@ -71,23 +72,5 @@ class ProfileController extends Controller
         }
         $profile->update($form);
         return redirect('/mypage');
-    }
-
-    public function editAddress($item_id)
-    {
-        $product = Product::findOrFail($item_id);
-        $profile = Auth::user()->profile;
-        return view('address_change', compact('product', 'profile'));
-    }
-
-    public function updateAddress(AddressRequest $request, $item_id)
-    {
-        $user = Auth::user();
-        $profile = Profile::firstOrNew(['user_id' => $user->id]);
-        $profile->postal_code = $request->input('postal_code');
-        $profile->city = $request->input('city');
-        $profile->building = $request->input('building');
-        $profile->save();
-        return redirect()->route('purchase', ['item_id' => $item_id]);
     }
 }

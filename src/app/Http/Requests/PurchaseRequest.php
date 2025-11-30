@@ -24,10 +24,16 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment' => '',
-            // purchase-address
+            'payment_id' => 'required',
+            'shipping_address' => 'required',
+        ];
+    }
 
-
+    public function messages()
+    {
+        return [
+            'payment_id.required' => '支払い方法を選択してください',
+            'shipping_address.required' => '配送先を選択してください'
         ];
     }
 }

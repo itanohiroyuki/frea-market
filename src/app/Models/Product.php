@@ -9,19 +9,20 @@ class Product extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'user_id',
-        'condition_id',
+        'seller_id',
         'buyer_id',
+        'condition_id',
+        'payment_id',
         'image',
         'name',
         'price',
         'brand',
         'description',
         'status',
+        'shipping_address'
     ];
-
 
     public function categories()
     {
@@ -46,5 +47,13 @@ class Product extends Model
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');
+    }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+        return $query;
     }
 }
