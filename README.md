@@ -4,8 +4,8 @@
 
 **Docker ビルド**
 
-1. `git clone git@github.com:git@github.com:Estra-Coachtech/coachtech-Checktest-mogitate.git
-2. cd coachtech-Checktest-mogitate
+1. `git clone git@github.com:itanohiroyuki/coachtech-flea-market.git
+2. cd coachtech-flea-market
 3. DockerDesktop アプリを立ち上げる
 4. `docker-compose up -d --build`
 
