@@ -1,11 +1,11 @@
-# coachtech-flea-market
+# flea-market
 
 ## 環境構築
 
 **Docker ビルド**
 
 1. `git clone git@github.com:itanohiroyuki/coachtech-flea-market.git`
-2. cd coachtech-flea-market
+2. cd flea-market
 3. DockerDesktop アプリを立ち上げる
 4. `docker-compose up -d --build`
 
